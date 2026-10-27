@@ -1,0 +1,4 @@
+[A] r=2 Q=2 R=2: D=16 interval I=[0, 1] measurement rows c_B=1 (= D*Pr[Bin(Q,1/4) notin I] = 1) -- all Section 4.2 lemmas verified
+[B] r=2 Q=2 R=2 n=5 m=4 M=12 copies h=3 degH=5 q=6 J=7 Z=899/18 recovered=899/18 -- design condition, separated Taylor data, Hermite recovery all verified
+[B] r=2 Q=3 R=2 n=6 m=5 M=15 copies h=3 degH=6 q=5 J=6 Z=-16/3 recovered=-16/3 -- design condition, separated Taylor data, Hermite recovery all verified
+ALL CHECKS PASSED
