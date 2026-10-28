@@ -1,0 +1,2 @@
+'MainResults.ethIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainResults.mainTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,18 @@
+info: downloading https://releases.lean-lang.org/lean4/v4.34.0/lean-4.34.0-linux_aarch64.tar.zst
+info: installing /home/unaltuzun.guest/.elan/toolchains/leanprover--lean4---v4.34.0
+info: lean4export: cloning https://github.com/leanprover/lean4export
+info: lean4export: checking out revision '076e8e57707e813375e8f9da8bf989799ace9680'
+✔ [1/4] Built Comparator.Util (101ms)
+✔ [5/16] Built Comparator.Util:c.o (53ms)
+✔ [6/16] Built Export.Parse (508ms)
+✔ [7/16] Built Comparator.Axioms (169ms)
+✔ [8/16] Built Comparator.Axioms:c.o (117ms)
+✔ [9/16] Built Comparator.Compare (197ms)
+✔ [10/16] Built Comparator (104ms)
+✔ [11/16] Built Comparator:c.o (21ms)
+✔ [12/16] Built Comparator.Compare:c.o (167ms)
+✔ [13/16] Built Main (549ms)
+✔ [14/16] Built Export.Parse:c.o (1.3s)
+✔ [15/16] Built Main:c.o (336ms)
+✔ [16/16] Built comparator:exe (292ms)
+Build completed successfully (16 jobs).

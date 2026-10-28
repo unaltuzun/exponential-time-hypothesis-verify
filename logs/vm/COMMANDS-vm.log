@@ -1,0 +1,52 @@
+[2026-10-28 01:14:26 +03] label=vm-elan-download
+  cwd:  /home/unaltuzun.guest/vdl
+  cmd:  curl -sSfL -o elan-init.sh https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh
+  exit=0 wall=0.4s maxRSS=18358272B (0.02 GiB)
+[2026-10-28 01:14:28 +03] label=vm-elan-install
+  cwd:  /home/unaltuzun.guest/vdl
+  cmd:  sh elan-init.sh -y --no-modify-path --default-toolchain none
+  exit=0 wall=2.1s maxRSS=19259392B (0.02 GiB)
+[2026-10-28 01:14:40 +03] label=vm-go-download
+  cwd:  /home/unaltuzun.guest/vdl
+  cmd:  curl -sSfL -o go1.27.3.linux-arm64.tar.gz https://go.dev/dl/go1.27.3.linux-arm64.tar.gz
+  exit=0 wall=11.4s maxRSS=20836352B (0.02 GiB)
+[2026-10-28 01:14:42 +03] label=vm-landrun-clone
+  cwd:  /home/unaltuzun.guest/vtools
+  cmd:  git clone -q https://github.com/zouuup/landrun.git
+  exit=0 wall=1.3s maxRSS=23879680B (0.02 GiB)
+[2026-10-28 01:14:45 +03] label=vm-landrun-build
+  cwd:  /home/unaltuzun.guest/vtools/landrun
+  cmd:  go build -o /home/unaltuzun.guest/vbin/bin/landrun ./cmd/landrun
+  exit=0 wall=3.1s maxRSS=298999808B (0.28 GiB)
+[2026-10-28 01:14:51 +03] label=vm-lean4export-clone
+  cwd:  /home/unaltuzun.guest/vtools
+  cmd:  git clone -q https://github.com/leanprover/lean4export.git
+  exit=0 wall=5.8s maxRSS=30863360B (0.03 GiB)
+[2026-10-28 01:16:44 +03] label=vm-lean4export-build
+  cwd:  /home/unaltuzun.guest/vtools/lean4export
+  cmd:  lake build
+  exit=0 wall=112.6s maxRSS=1739456512B (1.62 GiB)
+[2026-10-28 01:16:45 +03] label=vm-comparator-clone
+  cwd:  /home/unaltuzun.guest/vtools
+  cmd:  git clone -q https://github.com/leanprover/comparator.git
+  exit=0 wall=1.2s maxRSS=22601728B (0.02 GiB)
+[2026-10-28 01:19:03 +03] label=vm-comparator-build
+  cwd:  /home/unaltuzun.guest/vtools/comparator
+  cmd:  lake build
+  exit=0 wall=137.9s maxRSS=1731518464B (1.61 GiB)
+[2026-10-28 01:33:01 +03] label=vm-math-fetch
+  cwd:  /home/unaltuzun.guest/math
+  cmd:  git fetch -q --depth 1 origin 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a
+  exit=0 wall=838.5s maxRSS=197472256B (0.18 GiB)
+[2026-10-28 01:45:56 +03] label=vm-lake-update
+  cwd:  /home/unaltuzun.guest/math/lean
+  cmd:  lake update
+  exit=0 wall=766.7s maxRSS=2104856576B (1.96 GiB)
+[2026-10-28 01:46:04 +03] label=vm-cache-get
+  cwd:  /home/unaltuzun.guest/math/lean
+  cmd:  lake exe cache get
+  exit=0 wall=8.3s maxRSS=1853636608B (1.73 GiB)
+[2026-10-28 02:20:06 +03] label=vm-comparator-run
+  cwd:  /home/unaltuzun.guest/math/lean
+  cmd:  systemd-run '--property=RestrictAddressFamilies=~AF_UNIX' --user --wait --collect --pipe -E PATH=/home/unaltuzun.guest/vbin/bin:/home/unaltuzun.guest/vtools/go/bin:/home/unaltuzun.guest/.elan/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/sbin:/sbin -E HOME=/home/unaltuzun.guest --working-directory /home/unaltuzun.guest/math/lean -- bash -c 'ulimit -n 10240; lake env comparator ComparatorChallenges/SubexponentialSAT.json'
+  exit=0 wall=2021.3s maxRSS=12140544B (0.01 GiB)

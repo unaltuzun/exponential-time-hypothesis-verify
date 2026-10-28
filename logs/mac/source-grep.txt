@@ -1,0 +1,6 @@
+BinomialInterpolation.lean:67:/-- Arbitrary target values admit a unique binomial-basis coefficient vector. -/
+Subexp/UnaryCompare.lean:11:The local conditional scores admit bounded natural numerators. Unary storage
+SqrtLogSpace/FactorTableDenotation.lean:203:/-- The actual producer's branch-sensitive bytes admit a valid typed witness
+SqrtLogSpace/HeadSumCorrect.lean:286:/-- The actual full key and correction words admit exactly the intended
+SqrtLogSpace/NativeLeafContract.lean:186:staging admit one fixed polynomial in the original input length. The genuine
+SqrtLog/LeafProgramFactorBounds.lean:7:/-! The exact complete branch budgets admit a common polynomial bound.

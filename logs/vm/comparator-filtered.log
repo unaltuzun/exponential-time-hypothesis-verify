@@ -1,0 +1,17 @@
+Running as unit: run-p28672-i9778.service; invocation ID: 0f58ddfa7642472e8433f218b4224609
+Building ComparatorChallenges.SubexponentialSAT
+⚠ [8924/8924] Built ComparatorChallenges.SubexponentialSAT (2.3s)
+warning: ComparatorChallenges/SubexponentialSAT.lean:194:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from ComparatorChallenges.SubexponentialSAT
+Building OAI.Algorithms.SubexponentialSAT.Main
+Build completed successfully (12014 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from OAI.Algorithms.SubexponentialSAT.Main
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 33min 43.962s
+             CPU time consumed: 4h 53min 41.770s
+                   Memory peak: 49G (swap: 0B)

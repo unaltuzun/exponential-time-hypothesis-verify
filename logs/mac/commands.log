@@ -1,0 +1,135 @@
+[2026-10-27 23:45:00 +03] label=env-sw_vers
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  sw_vers
+  exit=0 wall=0.0s maxRSS=4734976B (0.00 GiB) peakFootprint=2130208B
+[2026-10-27 23:45:00 +03] label=env-sysctl
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  sysctl machdep.cpu.brand_string hw.ncpu hw.perflevel0.physicalcpu hw.perflevel1.physicalcpu hw.memsize
+  exit=0 wall=0.0s maxRSS=1294336B (0.00 GiB) peakFootprint=983232B
+[2026-10-27 23:45:00 +03] label=env-df
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  df -h /Users/unaltuzun
+  exit=0 wall=0.0s maxRSS=1376256B (0.00 GiB) peakFootprint=1032408B
+[2026-10-27 23:45:00 +03] label=env-uname
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  uname -a
+  exit=0 wall=0.0s maxRSS=1277952B (0.00 GiB) peakFootprint=966848B
+[2026-10-27 23:45:00 +03] label=env-git
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  git --version
+  exit=0 wall=0.0s maxRSS=3670016B (0.00 GiB) peakFootprint=1605872B
+[2026-10-27 23:45:04 +03] label=elan-download
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  curl -sSfL -o downloads/elan-init.sh https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh
+  exit=0 wall=0.4s maxRSS=7389184B (0.01 GiB) peakFootprint=4096360B
+[2026-10-27 23:45:11 +03] label=elan-install
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  sh downloads/elan-init.sh -y --no-modify-path --default-toolchain none
+  exit=0 wall=1.9s maxRSS=9256960B (0.01 GiB) peakFootprint=1409336B
+[2026-10-27 23:45:11 +03] label=elan-version
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  elan --version
+  exit=0 wall=0.3s maxRSS=9043968B (0.01 GiB) peakFootprint=2933216B
+[2026-10-27 23:56:39 +03] label=clone
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  git clone https://github.com/openai/math.git math
+  exit=0 wall=683.4s maxRSS=1355644928B (1.26 GiB) peakFootprint=388810120B
+[2026-10-27 23:56:44 +03] label=checkout
+  cwd:  /Users/unaltuzun/eth-verify/math
+  cmd:  git checkout 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a
+  exit=0 wall=0.6s maxRSS=77447168B (0.07 GiB) peakFootprint=73924992B
+[2026-10-27 23:56:45 +03] label=rev-parse
+  cwd:  /Users/unaltuzun/eth-verify/math
+  cmd:  git rev-parse HEAD
+  exit=0 wall=0.0s maxRSS=4210688B (0.00 GiB) peakFootprint=1720560B
+[2026-10-27 23:56:45 +03] label=sha256
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  shasum -a 256 ComparatorChallenges/SubexponentialSAT.lean ComparatorChallenges/SubexponentialSAT.json OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean
+  exit=0 wall=0.0s maxRSS=7110656B (0.01 GiB) peakFootprint=4636984B
+[2026-10-27 23:57:11 +03] label=clone-comparator
+  cwd:  /Users/unaltuzun/eth-verify/tools
+  cmd:  git clone -q https://github.com/leanprover/comparator.git
+  exit=0 wall=1.2s maxRSS=8683520B (0.01 GiB) peakFootprint=2752800B
+[2026-10-27 23:57:19 +03] label=clone-lean4export
+  cwd:  /Users/unaltuzun/eth-verify/tools
+  cmd:  git clone -q https://github.com/leanprover/lean4export.git
+  exit=0 wall=8.1s maxRSS=26230784B (0.02 GiB) peakFootprint=3555664B
+[2026-10-27 23:57:21 +03] label=clone-landrun
+  cwd:  /Users/unaltuzun/eth-verify/tools
+  cmd:  git clone -q https://github.com/zouuup/landrun.git
+  exit=0 wall=1.7s maxRSS=8683520B (0.01 GiB) peakFootprint=2867488B
+[2026-10-28 00:11:04 +03] label=lake-update
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake update
+  exit=0 wall=841.3s maxRSS=1897168896B (1.77 GiB) peakFootprint=1251108984B
+[2026-10-28 00:11:11 +03] label=lean-version
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake env lean --version
+  exit=0 wall=5.4s maxRSS=1683963904B (1.57 GiB) peakFootprint=1103750736B
+nohup bin/phase23.sh (pid 62620); memsampler pid 62619
+[2026-10-28 00:11:46 +03] label=cache-get
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake exe cache get
+  exit=0 wall=11.9s maxRSS=1664122880B (1.55 GiB) peakFootprint=1094330128B
+[2026-10-28 00:11:51 +03] label=build-Mathlib
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake build Mathlib
+  exit=0 wall=5.2s maxRSS=1804632064B (1.68 GiB) peakFootprint=1235036664B
+[2026-10-28 00:12:19 +03] label=build-Challenge
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake build ComparatorChallenges.SubexponentialSAT
+  exit=0 wall=27.8s maxRSS=5978963968B (5.57 GiB) peakFootprint=1269557320B
+[2026-10-28 00:46:58 +03] label=build-Final
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake build OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Final
+  exit=0 wall=2079.6s maxRSS=16820781056B (15.67 GiB) peakFootprint=1916563160B
+[2026-10-28 00:53:52 +03] label=build-Main
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake build OAI.Algorithms.SubexponentialSAT.Main
+  exit=0 wall=413.9s maxRSS=7643217920B (7.12 GiB) peakFootprint=1608019048B
+[2026-10-28 00:54:12 +03] label=axioms-Final-file
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake env lean OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/Final.lean
+  exit=0 wall=7.6s maxRSS=6691291136B (6.23 GiB) peakFootprint=1083844176B
+[2026-10-28 00:54:20 +03] label=axioms-scratch
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake env lean ../../scratch/PrintAxioms.lean
+  exit=0 wall=7.4s maxRSS=6648152064B (6.19 GiB) peakFootprint=1087170104B
+[2026-10-28 00:54:28 +03] label=axioms-scratch-Main
+  cwd:  /Users/unaltuzun/eth-verify/math/lean
+  cmd:  lake env lean ../../scratch/PrintAxiomsMain.lean
+  exit=0 wall=7.6s maxRSS=6745178112B (6.28 GiB) peakFootprint=1089775088B
+[2026-10-28 01:13:17 +03] label=lima-create
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  limactl create --tty=false --name=cmp --vm-type=vz --cpus=16 --memory=80 --disk=100 --mount-none template:ubuntu-26.04
+  exit=0 wall=1044.0s maxRSS=67534848B (0.06 GiB) peakFootprint=40731608B
+[2026-10-28 01:14:20 +03] label=lima-start
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  limactl start --tty=false cmp
+  exit=0 wall=36.7s maxRSS=60669952B (0.06 GiB) peakFootprint=38650648B
+VM: nohup bash vbin/run-comparator.sh (see VM ~/vlogs/COMMANDS-vm.log)
+[2026-10-28 01:46:55 +03] label=p6-fetch
+  cwd:  /Users/unaltuzun/eth-verify/phase6/formal-math
+  cmd:  git fetch -q --depth 1 origin 16a5ce41304fcdaea4e0be7c132e1c361dc26da5
+  exit=0 wall=7.7s maxRSS=8814592B (0.01 GiB) peakFootprint=2097392B
+[2026-10-28 01:46:55 +03] label=p6-rev
+  cwd:  /Users/unaltuzun/eth-verify/phase6/formal-math
+  cmd:  git rev-parse HEAD
+  exit=0 wall=0.1s maxRSS=4194304B (0.00 GiB) peakFootprint=1704176B
+[2026-10-28 01:58:31 +03] label=p6-cache-get
+  cwd:  /Users/unaltuzun/eth-verify/phase6/formal-math/eth
+  cmd:  lake exe cache get
+  exit=0 wall=681.9s maxRSS=867745792B (0.81 GiB) peakFootprint=275423720B
+[2026-10-28 02:21:00 +03] label=lima-stop
+  cwd:  /Users/unaltuzun/eth-verify
+  cmd:  limactl stop cmp
+  exit=0 wall=8.1s maxRSS=57032704B (0.05 GiB) peakFootprint=35111680B
+nohup bin/phase6.sh (pid 91067)
+[2026-10-28 02:25:04 +03] label=p6-build
+  cwd:  /Users/unaltuzun/eth-verify/phase6/formal-math/eth
+  cmd:  lake build
+  exit=0 wall=243.6s maxRSS=6161727488B (5.74 GiB) peakFootprint=759424808B
+[2026-10-28 02:25:08 +03] label=p6-axioms
+  cwd:  /Users/unaltuzun/eth-verify/phase6/formal-math/eth
+  cmd:  lake env lean scripts/PrintAxioms.lean
+  exit=0 wall=3.5s maxRSS=5920129024B (5.51 GiB) peakFootprint=136748752B

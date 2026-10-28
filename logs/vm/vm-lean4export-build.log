@@ -1,0 +1,8 @@
+info: downloading https://releases.lean-lang.org/lean4/v4.34.1/lean-4.34.1-linux_aarch64.tar.zst
+info: installing /home/unaltuzun.guest/.elan/toolchains/leanprover--lean4---v4.34.1
+✔ [2/6] Built Export (898ms)
+✔ [3/6] Built Main (383ms)
+✔ [4/6] Built Main:c.o (73ms)
+✔ [5/6] Built Export:c.o (965ms)
+✔ [6/6] Built lean4export:exe (417ms)
+Build completed successfully (6 jobs).

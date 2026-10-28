@@ -1,0 +1,7 @@
+--- write to /tmp/lr-forbidden (only /tmp/lr-ok is rw):
+touch: cannot touch '/tmp/lr-forbidden': Permission denied
+rc=1
+ls: cannot access '/tmp/lr-forbidden': No such file or directory
+--- write to allowed /tmp/lr-ok/x:
+rc=0
+x

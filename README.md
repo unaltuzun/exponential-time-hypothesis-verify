@@ -13,7 +13,8 @@ Source under study (not vendored here): https://github.com/openai/math at commit
 | Path | Contents |
 |---|---|
 | `docs/REPORT.md` | Full report: definitions, algorithm reconstruction, complexity derivation, Lean audit, dependency graph, assessment, research directions |
-| `VERIFICATION.md` | *(added after the build)* Kernel-verification run on Apple M5 Max: build table, verbatim `#print axioms`, Comparator output |
+| `VERIFICATION.md` | **Kernel verification run** (Apple M5 Max + Lima Ubuntu VM): build table, verbatim `#print axioms`, verbatim Comparator output. Verdict: KERNEL-VERIFIED |
+| `logs/mac/`, `logs/vm/` | Full logs of that run (host builds, axiom checks, Comparator in a Landlock sandbox) |
 | `scripts/mechanism_test.py` | Independent small-instance reproduction of the core mechanism (swap-matrix construction, replacement rows, separated Taylor data, Hermite recovery) with exact rational arithmetic. `python3 -I scripts/mechanism_test.py <seed>` |
 | `docs/weighted-corollary.md` | Remark (not a new result): explicit rational factor tables under the general-count route — height bound and scope |
 | `scripts/weighted_test.py` | Same pipeline with arbitrary rational factor tables (weighted partition function `Z`) — shows the mechanism does not depend on factors being clause indicators |
@@ -27,7 +28,8 @@ Source under study (not vendored here): https://github.com/openai/math at commit
 * Static audit of the full closure: 0 `sorry`, 0 `axiom`, 0 `native_decide`, 0 `unsafe`/`extern`; challenge definitions match the library textually.
 * Lean formalizes the **weaker** bound `(L+1)^{O_k(1)} 2^{O_k(n (log log n)^2/√log n)}` (paper's Prop. `prop:interpolation-bound`), not Theorem 1.1's `n/√log n` tensor-contraction bounds. The weaker bound is still `2^{o(n)}` and suffices to refute ETH; the final step "`ρ(n)=o(n)` ⇒ ETH false" is informal (trivial) and not a Lean theorem in the OpenAI library.
 * The algebraic mechanism (Sections 2 and 4.2 of the paper) is correct as a set of exact identities on every small instance tested; see `scripts/`.
-* Build/axiom/Comparator results: see `VERIFICATION.md`.
+* **Build / axioms / Comparator (see `VERIFICATION.md`):** at the pinned commit, `SqrtLogSpace.Final` built with 0 errors (2,569 OAI modules, 34.7 min on M5 Max); `#print axioms` for `exact_count_and_sat`, `exact_count_eth`, `sat_polynomial_space`, `original_sat_main` is exactly `[propext, Classical.choice, Quot.sound]`; Comparator v4.34.0 (in a Landlock sandbox, Linux VM, solution built from scratch inside the sandbox) reports `Lean default kernel accepts the solution` — the proved theorem is the challenge statement. `enable_nanoda` is false in the challenge config, so only Lean's own kernel was used.
+* Cross-check: `anthropics/formal-math/eth` @ `16a5ce4` also builds; `ethIsFalse` and `mainTheorem` depend only on the same three axioms.
 
 ## Reproduce
 

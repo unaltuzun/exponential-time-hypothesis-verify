@@ -1,0 +1,25 @@
+Linux lima-cmp 7.0.0-15-generic #15-Ubuntu SMP PREEMPT_DYNAMIC Wed Apr 22 15:54:12 UTC 2026 aarch64 GNU/Linux
+PRETTY_NAME="Ubuntu 26.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+VERSION="26.04 LTS (Resolute Raccoon)"
+VERSION_CODENAME=resolute
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=resolute
+LOGO=ubuntu-logo
+16
+               total        used        free      shared  buff/cache   available
+Mem:              78           1          75           0           1          76
+Swap:              0           0           0
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        96G  3.1G   93G   4% /
+git version 2.53.0
+Python 3.14.4
+systemd 259 (259.5-0ubuntu3)
+lockdown,capability,landlock,yama,apparmor,ima,evmgo version go1.27.3 linux/arm64
+landrun version 0.1.18

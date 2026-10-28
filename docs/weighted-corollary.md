@@ -1,61 +1,80 @@
-# Remark: explicitly encoded rational factor tables (not a new result)
+# Weighted rational factor corollary
 
-Source: `main_full_version.tex` at `openai/math` commit `7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a` — Prop. `prop:general-count` (L2013–2030), Definition `def:layout` (L1714–1748), Lemma `lem:row-coefficients` (L2635), Prop. `prop:count` (L3044–3088), Appendix B `app:arithmetic` (L3886–). Numerical sanity check: `scripts/weighted_test.py` (`results/weighted_test_seed7.log`).
+Source: `main_full_version.tex` at `openai/math` commit `7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a` — Prop. `prop:general-count` (L2013–2030), Definition `def:layout` (L1714–1748), Lemma `lem:row-coefficients` (L2635), Lemma `lem:layout` (L2696), Lemma `lem:incidence-parameters` (L2747), branching on dense variables (L3109–3117), fallback (L3185–3197), Appendix B `app:arithmetic` (L3886–). Numerical sanity check: `scripts/weighted_test.py` (`results/weighted_test_seed7.log`).
 
-## Setting
+## Corollary (conditional on the source's lemmas)
 
-Explicit rational tables `φ_a : {0,1}^{S_a} → ℚ`, `a = 1..m`, on `n` Boolean variables; target
+Let $S_a \subseteq [n]$ be explicitly specified scopes and let $\phi_a : \{0,1\}^{S_a} \to \mathbb{Q}$ be rational-valued factors given by explicit tables. Let $L$ be the total binary encoding length of the input tables and define
 
-`Z = Σ_{x∈{0,1}^n} ∏_a φ_a(x_{S_a})`, `M = Σ_a |S_a|`.
+$$Z=\sum_{x\in\{0,1\}^n}\prod_a \phi_a(x|_{S_a}),\qquad M=\sum_a |S_a| .$$
 
-Let `L` be the total binary encoding length of all tables (numerators and denominators), `w = max_a |S_a|`, `b` the maximum number of factors containing one variable.
+Assume $M = O(n)$ and that every scope has size at most $(\log n)^c$ for a fixed constant $c$. Then the source's `general-count` algorithm, together with its layout construction and exact rational interpolation, computes $Z$ deterministically in
 
-**Assumptions (all explicit):**
-1. `M = Σ_a |S_a| = O(n)` (total incidence; `b ≤ polylog` alone does not imply this).
-2. `w ≤ polylog(n)` and `b ≤ polylog(n)`; if `b` is achieved by fixing the variables of incidence above `b₀ = ⌈M/n⌉⌈√λ⌉` (source L3109–3117), the `2^{|S|} ≤ 2^{n/√λ}` branches are a separate multiplicative factor and require assumption 1.
-3. The source's layout conditions (Definition `def:layout`, built by Lemma `lem:layout` under Lemma `lem:incidence-parameters`).
+$$\operatorname{poly}(n,L)\; 2^{O\left(n(\log\log n)^2/\sqrt{\log n}\right)}$$
 
-Each table is used through its multilinear extension `φ̃_a(y) = Σ_{U⊆S_a} c_{a,U} ∏_{v∈U} y_v`, of degree `≤ w_a`, so the input-degree hypothesis (L1689–1693) holds with `d ≤ M = O(n)`.
+bit operations and polynomial space.
 
-## Weighted-factor height bound and scope of the corollary
+The corollary is conditional on the source's layout, parameter-selection and arithmetic lemmas, with the weighted-factor height bounds established below. It does not establish the sharper Appendix D tensor-contraction bound for arbitrary weighted tables.
 
-For each factor `a`, let `w_a = |S_a|`, and let `L_a` denote the encoding length of its rational table. The Möbius coefficients of its multilinear extension satisfy
+## Proof
 
-`|c_{a,U}| ≤ 2^{w_a} · max_{x∈{0,1}^{S_a}} |φ_a(x)|`.
+### 1. Rational-factor height and common denominators
 
-Thus their bit lengths increase by at most `O(w_a)` beyond the table-entry magnitude and common-denominator costs. The argument does not require `w_a` to be constant: `w_a ≤ polylog(n)` suffices for this overhead to remain within the claimed polynomial bit bound.
+Add a neutral unary factor equal to $1$ on $\{v\}$ for each $v \in [n]$. This changes neither $Z$ nor $M = O(n)$, and ensures $n \le M$. Empty-scope factors are assigned to group one, as in the source's layout construction.
 
-Using the common denominator
+For each table let $L_a$ be its encoding length, $q_a$ the product of its entry denominators, and
 
-`Ω = ∏_a q_a Δ^{w_a}`,  `Δ = (R−1)! Q!`,  `log₂ Ω = O(L + M Q log(Q+2))`
+$$w_a=|S_a|,\qquad H_a=\max\Bigl(1,\max_{u\in\{0,1\}^{S_a}}|\phi_a(u)|\Bigr).$$
 
-(`q_a` = product of the denominators of table `a`, `Σ_a log₂ q_a = O(L)`; `Δ` from Lemma `lem:row-coefficients`), and the coefficient 1-norm bound for substituted factors, the integer numerators of products and partial sums have polynomial bit length in the input size and the layout parameters. In particular, the logarithm of the number of accumulated terms contributes only additively to the numerator bit length. The enumeration bound is
+Then $\sum_a \log_2 q_a = O(L)$ and $\sum_a \log_2 H_a = O(L)$.
 
-`2Qr · C_q (2D+1)^{2τn} 2^{2n/r}`,
+Let $\widetilde\phi_a$ be the unique multilinear extension of $\phi_a$. Its Möbius coefficients are $c_{a,U}=\sum_{T\subseteq U}(-1)^{|U|-|T|}\phi_a(\mathbf 1_T)$, so $|c_{a,U}| \le 2^{|U|}H_a \le 2^{w_a}H_a$ and $\|\widetilde\phi_a\|_1 \le 3^{w_a}H_a$. These estimates do not assume $w_a$ constant: the scope-dependent overhead is summed using $\sum_a w_a = M = O(n)$. The product of the multilinear extensions has degree at most $d \le \sum_a w_a = M = O(n)$ in the distinct incidence variables used by `general-count`, so the degree hypothesis (source L1689–1693) holds.
 
-where the source's parameter choice gives
+Use the source's common row denominator $\Delta=(R-1)!\,Q!$, with $\log_2\Delta = O(Q\log(Q+2))$. Lemma `lem:row-coefficients` bounds the integer coefficient $1$-norm of each $\Delta P_{a,v}(T)$ by $2^{O(Q\log Q)}$. After evaluation at $t+z$ with $0\le t\le Q$, the norm grows by at most $(Q+1)^R$; dot products with Boolean vectors and the correction terms $\langle \Delta P, \mathbf 1_U\rangle$ add at most a polynomial factor in $n$. Thus every substituted input form is $\theta_{a,v}(z)=A_{a,v}(z)/\Delta$ with integer polynomial numerator satisfying
 
-`log C_q = O( n (R/Q) log(2Q/R) )`.
+$$\log_2\max(1,\|A_{a,v}\|_1)=O\bigl(Q\log(Q+2)+R\log(Q+1)+\log(n+2)\bigr),$$
 
-Consequently
+which is $O(\log n)$ in the source's parameter regime. Let $K$ be a uniform bound on these norms, $\log_2 K = O(\log n)$.
 
-`log(Qr C_q) = O( log(Qr) + n (R/Q) log(2Q/R) )`.
+After substitution, a factor of scope $w_a$ has denominator dividing $q_a\Delta^{w_a}$ and numerator $1$-norm at most $q_aH_a\,3^{w_a}\max(K,\Delta)^{w_a}$. A common denominator for the complete product is
 
-Thus the logarithm of the total number of accumulated terms is bounded by
+$$\Omega=\prod_a q_a\Delta^{w_a},\qquad \log_2\Omega=O\bigl(L+MQ\log(Q+2)\bigr)=O(L+n\log n),$$
 
-`O( log(Qr) + n (R/Q) log(2Q/R) + τ n log(2D+1) + n/r )`.
+using $Q\log(Q+2)=O(\log n)$. By submultiplicativity, the product's coefficient $1$-norm has logarithm $O\bigl(L+\sum_a w_a\log(K+2)+M\bigr)=O(L+n\log n)$; the scope-dependent part is summed as $\sum_a O(w_a\log n)=M\cdot O(\log n)$, not bounded by the maximum scope times the number of factors.
 
-Under the source's chosen parameter regime, these contributions, together with the common-denominator bound, substituted-factor norm bounds, and Taylor depth `J`, give a polynomial bound `B_data = poly(n, L, λ)`. This height estimate does not require changing the parameters `r, Q, R, τ, D` that determine the source algorithm's exponential running-time factor. The Hermite interpolation and determinant bounds of Appendix B (the Hermite matrix with integer nodes `1..Q` and multiplicity `J`; fraction-free elimination) then apply unchanged.
+### 2. Taylor-data height and exact interpolation
 
-Note that the Beigel–Tarui lift chain `Δ → Γ = Δ^{2ℓ−1} → Ω = Γ^{m_test}` of `prop:count` (L3072–3077) is **not** needed here: weighted tables are summed directly over `ℚ`, with no parity lift.
+`general-count` examines at most $2Qr\,C_q(2D+1)^{2\tau n}2^{2n/r}$ Boolean vectors; for $d=O(n)$ the source's finite-difference estimate gives $\log_2 C_q = O\bigl(n\tfrac{R}{Q}\log\tfrac{2Q}{R}\bigr)$. Hence the logarithm of the number of accumulated terms is
 
-## Conditional conclusion
+$$O\Bigl(\log(Qr)+n\frac RQ\log\frac{2Q}{R}+\tau n\log(2D+1)+\frac nr\Bigr),$$
 
-Under assumptions 1–3, the general-count routine adapted to weighted table inputs computes `Z` in `poly(n, L) · 2^{O(ρ(n))}` bit operations and `poly(n, L)` bits of space, with `ρ(n) = n (log log n)²/√log n` the source's exponent on this route (including the dense-variable branching). Weight bit length enters only the polynomial factor, not the exponent.
+each term $O(n)$ under the selected parameters. Accumulation adds the logarithm of the term count to numerator bit length, not the count itself. The Taylor depth is $J=\lfloor dR/Q\rfloor+1=O(1+nR/Q)$; truncation modulo $z^J$ does not increase the $1$-norm. Combining the denominator, product-norm, accumulation and Taylor-depth bounds, the cleared interpolation-data coefficients have bit length
 
-## Scope and caveats
+$$B_{\mathrm{data}}=O(L+n\log n)$$
 
-* This is not a new algorithm: it is an application of the source's general-count routine and Appendix B arithmetic/interpolation framework to explicitly encoded rational factor tables, subject to the stated layout, incidence, and height bounds.
-* `prop:general-count` counts ring operations and explicitly requires the bit cost of general factor evaluators to be verified separately (L2040–2044). The height bound above is the part that closes that obligation for weighted tables; it is our derivation from the source's proof template, not a result stated in the source.
-* It does not establish the sharper Appendix D tensor-contraction bound `2^{O(s/√log s)}` for arbitrary weighted tables: that route works modulo `2^{P₀}` with `P₀ ≤ Cs`, so weights of super-constant bit length do not fit it without further ideas.
+up to polynomial-size bookkeeping. Thus exact factor evaluation and all rational arithmetic have polynomial bit cost.
+
+For interpolation put $M_H=QJ$. The source's Hermite matrix has integer entries $\mathsf V_{(t,j),u}=\binom{u}{j}t^{u-j}$ for $u\ge j$ and $0$ otherwise ($t\in[Q]$, $0\le j<J$, $0\le u<M_H$); its dimension and entry bit lengths are polynomial. If $\mathbf y$ is the Taylor-data vector and $\mathbf h$ the coefficient vector of $H$, then $\mathsf V\mathbf h=\mathbf y$ with $h_0=H(0)=Z$. After clearing denominators, Cramer's rule gives $Z=\det\mathsf V^{(0)}/(\Omega\det\mathsf V)$, where $\mathsf V^{(0)}$ replaces the column $u=0$ by $\Omega\mathbf y$. The source's determinant-height bound and fraction-free Gaussian elimination compute the exact rational answer in polynomial bit complexity and space.
+
+This uses only the factor-independent Hermite/interpolation part of Appendix B. The Beigel–Tarui lift, its $\Gamma$-denominator chain (source L3072–3077) and the integer-residue readout are not required.
+
+### 3. Branching, layout feasibility, and exponential running time
+
+Let $M$ include the neutral unary factors, so $n\le M=O(n)$. Set $\lambda=\lceil\log_2 n\rceil$ and $b_0=\lceil M/n\rceil\lceil\sqrt\lambda\rceil$. Let $S$ be the variables occurring in more than $b_0$ scopes; then $|S|\le M/b_0\le n/\sqrt\lambda$, so there are at most $2^{n/\sqrt\lambda}$ branches.
+
+After fixing $x|_S=b$, each table is restricted to the fixed bits; surviving entries are selected from the original table, so a branch's representation length is $L'\le L+\operatorname{poly}(n)$. Branches are processed sequentially. In each restricted instance the maximum incidence satisfies $b\le b_0=O(\sqrt\lambda)$ (using $M=O(n)$), scopes stay polylogarithmic, and the neutral factors give $n'\le M'\le bn'$ for the free-variable count $n'$ and restricted incidence $M'$.
+
+Choose a fixed $\beta$ with $b,w\le(\lambda')^\beta$, $\lambda'=\lceil\log_2 n'\rceil$, $\nu'=\lceil\log_2\lambda'\rceil$, and use the source's parameters
+
+$$r=\Bigl\lfloor\frac{\sqrt{\lambda'}}{(\nu')^2}\Bigr\rfloor,\quad Q=\Bigl\lfloor\frac{\lambda'}{128\nu'}\Bigr\rfloor,\quad R=(\beta+3)\lceil\sqrt{\lambda'}\rceil,\quad \tau=\frac1{r\lambda'},\quad D=r^{2Q}.$$
+
+Lemma `lem:layout` requires $2(b+w)D^2\le M'$, $2Qr^2\le n'$, $n'\le M'\le bn'$, plus the binomial-tail and interval conditions; Lemma `lem:incidence-parameters` shows they hold for all sufficiently large $n$. For any size at which a check fails, evaluate the weighted sum by exhaustive enumeration (polynomial bit cost per assignment); only finitely many sizes need this fallback, which is absorbed into the constants.
+
+For feasible instances the three exponential-cost terms $\tfrac RQ\log\tfrac{2Q}{R}$, $\tau\log(2D+1)$, $\tfrac1r$ satisfy $R/Q=O(\nu'/\sqrt{\lambda'})$, $\log(2Q/R)=O(\nu')$, $\tau\log(2D+1)=O(1/r)$, $1/r=O((\nu')^2/\sqrt{\lambda'})$. The per-branch time is $\operatorname{poly}(n,L)\,2^{O(n'(\log\log n')^2/\sqrt{\log n'})}$; multiplying by at most $2^{n/\sqrt\lambda}$ branches preserves $\operatorname{poly}(n,L)\,2^{O(n(\log\log n)^2/\sqrt{\log n})}$. Sequential processing keeps the space polynomial. $\blacksquare$
+
+## Scope
+
+* **Not a new algorithm.** This applies the source's `general-count` routine and Appendix B arithmetic/interpolation framework to explicitly encoded rational tables. `prop:general-count` counts ring operations and explicitly requires the bit cost of general factor evaluators to be verified separately (source L2040–2044); §1–2 above close that obligation for weighted tables and are our derivation, not a statement in the source.
+* Weight bit length enters only the polynomial factor, not the exponent.
+* It does not establish the Appendix D tensor-contraction bound $2^{O(s/\sqrt{\log s})}$ for arbitrary weighted tables: that route works modulo $2^{P_0}$ with $P_0\le Cs$, which weights of super-constant bit length do not satisfy without further ideas.
 * Real-valued weights are out of scope (no finite encoding).
