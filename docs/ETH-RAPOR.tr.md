@@ -157,8 +157,11 @@ yalnızca zararsız "exponent 512" uyarısı; `sorry`, `axiom`, `native_decide`,
 `#print axioms` → `[propext, Classical.choice, Quot.sound]`.
 
 Sınırlar:
-- `hd` varsayımı kaynaktaki derinlik sınırından gelir: `8^d < C√λ ⇒ 2^{6d} < C²λ`. Sabit 18 yalnızca
-  `C ≤ 512` için doğru; genel C için `2^18` yerine yaklaşık `C²` gerekir.
+- `hd` varsayımı kaynaktaki derinlik sınırından gelir: `8^d < C√λ ⇒ 2^{6d} < C²λ`. Bu dosyadaki sabit 18
+  yalnızca `C ≤ 512` için doğru. **Giderildi (30 Ekim):** `PrecisionExtensionGeneral.lean`'deki
+  `precision_extension_general`, `C² ≤ 2^(18+c)` olacak şekilde seçilen bir `c` ve `2^(640+8c) ≤ N` eşiğiyle
+  her C için aynı sonucu kanıtlıyor; eski teorem `c = 0` özel hali olarak türetiliyor. Claude Fable yazdı;
+  Mac'te bağımsız olarak kontrol edildi (çıkış 0, `sorry` yok, üç standart aksiyom; sha256 `cced7e0f…`).
 - Yalnızca `B ≤ 2^20` kapsanıyor ("her sabit B" değil).
 - Eşik `λ ≥ 2^640`, yani `s ≥ 2^(2^640)`: asimptotik teorem için meşru, pratik anlamı yok.
 - Bu yalnızca aritmetik çekirdek. Eşitsizliğin makaledeki ispat için yeterli olduğu (§3) elle yapılmış bir
@@ -177,7 +180,8 @@ Sınırlar:
 
 ## 7. Açık kalanlar
 
-1. `precision_extension`'ı genel C için genellemek (`2^18` yerine C'ye bağlı sabit).
+1. ~~`precision_extension`'ı genel C için genellemek.~~ Yapıldı (`precision_extension_general`, §5).
+   Sıradaki aynı türden iş: `B ≤ 2^20` kısıtını B'ye bağlı bir eşikle kaldırmak.
 2. §3'teki "yeterlilik" adımını ve §4'teki ağırlıklı kodlamayı biçimselleştirmek.
 3. Lean'deki ifade tanımlarının "ETH yanlış" iddiasına sadakati: incelendi (30 Ekim), hile bulunamadı; bağımsız
    uzman incelemesi bekleniyor (§2, "İfadenin sadakati"). İnceleme iki yapay zekâ okumasına dayanıyor.
