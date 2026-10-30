@@ -1,0 +1,13 @@
+# Independent check of lean/PrecisionExtensionCore.lean
+# date: 2026-10-30 20:27 UTC
+# sha256: 2fef70505f37f9d6357d732abdf9e819b119292f1eeb78493de5661d1ed8ff86
+# toolchain: Lean (version 4.34.1, arm64-apple-darwin24.6.0, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+# command: lean Check.lean   (Check.lean = the file + '#print axioms ...precision_extension')
+# risky-construct grep (sorry|admit|axiom|native_decide|implemented_by|extern|unsafe):
+  (none)
+# output:
+Check.lean:250:10: warning: exponent 512 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'SubexponentialSAT.PrecisionExtensionCore.precision_extension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+# exit=0
