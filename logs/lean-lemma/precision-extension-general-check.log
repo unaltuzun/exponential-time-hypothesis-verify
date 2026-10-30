@@ -1,0 +1,20 @@
+# Independent check of lean/PrecisionExtensionGeneral.lean (Mac)
+# date: 2026-10-30 20:41 UTC
+# sha256: cced7e0fb231c4f04c48fad4663d76c20b0a299d3c73a3860b48fc7fb7c5378c
+# toolchain: Lean (version 4.34.1, arm64-apple-darwin24.6.0, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+# command: lean G.lean   (file unchanged; it ends with its own two #print axioms lines)
+# risky-construct grep (sorry|admit|axiom|native_decide|implemented_by|extern|unsafe|import|exponentiation.threshold):
+  (none)
+# set_option lines:
+17:set_option maxRecDepth 8192
+18:set_option maxHeartbeats 20000000
+# output:
+G.lean:379:46: warning: exponent 512 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+G.lean:469:43: warning: exponent 640 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'SubexponentialSAT.PrecisionExtensionCore.precision_extension_general' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'SubexponentialSAT.PrecisionExtensionCore.precision_extension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+# exit=0

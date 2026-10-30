@@ -43,8 +43,23 @@ Here `N = λ` and `u = u_d` with `ε = 2^{−17}`. Core Lean only (no Mathlib). 
 `logs/lean-lemma/precision-extension-check.log` (Lean 4.34.1, exit 0, no `sorry`, axioms
 `[propext, Classical.choice, Quot.sound]`).
 
+**General `C` (added 30 Oct 2026):** `lean/PrecisionExtensionGeneral.lean` proves
+
+```lean
+theorem SubexponentialSAT.PrecisionExtensionCore.precision_extension_general
+    (c B N d u : Nat) (hB : B ≤ 2 ^ 20) (hN : 2 ^ (640 + 8 * c) ≤ N)
+    (hd : 2 ^ (6 * d) ≤ 2 ^ (18 + c) * N) (hu : u = N / 2 ^ (17 + d)) :
+    2 ^ u ≥ N ^ (B + 2) * u * 2 ^ 18
+```
+
+so every depth constant `C` is covered by choosing `c` with `C² ≤ 2^(18+c)`; the threshold grows to
+`2^(640+8c)`. The original theorem is derived in the same file as the case `c = 0`. Drafted by Claude Fable,
+checked independently on the Mac: `logs/lean-lemma/precision-extension-general-check.log` (exit 0, no `sorry`,
+both theorems `[propext, Classical.choice, Quot.sound]`). Details: `docs/task-a-general-C.md`.
+
 Restrictions:
-- `hd` encodes the depth bound `8^d < C√λ ⇒ 2^{6d} < C²λ`; the constant `2^18` covers only `C ≤ 512`.
+- `hd` encodes the depth bound `8^d < C√λ ⇒ 2^{6d} < C²λ`. The first file (`PrecisionExtensionCore.lean`) fixes
+  `2^18`, i.e. `C ≤ 512`; the general file removes this restriction.
 - Only `B ≤ 2^20` is covered, not every fixed `B`.
 - The threshold `λ ≥ 2^640` (that is, `s ≥ 2^(2^640)`) is legitimate for an asymptotic statement and has no
   practical meaning.
